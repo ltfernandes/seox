@@ -74,7 +74,7 @@ function change_link($post_link, $id = 0)
  */
 function register_route_regioes()
 {
-    register_rest_route('wp/v2', '/posts/(?P<regiao_slug>[a-zA-Z0-9-]+)', array(
+    register_rest_route('wp/v2', '/posts=(?P<regiao_slug>[a-zA-Z0-9-]+)', array(
         'methods' => 'GET',
         'callback' => 'get_posts_by_regioes',
     ));
