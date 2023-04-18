@@ -1,4 +1,5 @@
 <?php
+require_once(dirname(__FILE__) . '/vendor/autoload.php');
 
 /**
  * Função que cria a taxonomia personalizada Regioes, que permite adicionar categorias filhas
@@ -74,7 +75,7 @@ function change_link($post_link, $id = 0)
  */
 function register_route_regioes()
 {
-    register_rest_route('wp/v2', '/posts=(?P<regiao_slug>[a-zA-Z0-9-]+)', array(
+    register_rest_route('wp/v2', '/getposts=(?P<regiao_slug>[a-zA-Z0-9-]+)', array(
         'methods' => 'GET',
         'callback' => 'get_posts_by_regioes',
     ));
@@ -99,13 +100,15 @@ function get_posts_by_regioes($request)
         ),
     ));
     $data = array();
-
     foreach ($posts as $post) {
-        $data[] = array(
+        $regioes = wp_get_post_terms( $post->ID, array('regioes'));
+        $data[] = [
             'id' => $post->ID,
             'title' => $post->post_title,
             'content' => $post->post_content,
-        );
+            'regioes' => $regioes
+        ];
     }
-    return $data;
+    return json_decode(json_encode($data));
 }
+

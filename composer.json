@@ -1,0 +1,35 @@
+{
+    "name": "seox-rh/teste-backend-01",
+    "type": "wordpress-theme",
+    "description": "Teste backend WordPress",
+    "keywords": [
+      "WordPress"
+    ],
+    "homepage": "https://www.seox.com.br/",
+    "autoload": {
+      "psr-4": {
+        "Seox\\TesteBackend\\": "src/"
+      }
+    },
+    "require": {
+      "php": ">=7.4"
+    },
+    "require-dev": {
+      "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+      "pheromone/phpcs-security-audit": "^2.0",
+      "wp-coding-standards/wpcs": "^2.3"
+    },
+    "scripts": {
+      "check-style": "phpcs -p --standard=phpcs.xml *.php src/",
+      "check-security": "phpcs -p --standard=Security *.php src/",
+      "check": [
+        "@check-style",
+        "@check-security"
+      ]
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}
